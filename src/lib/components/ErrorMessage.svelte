@@ -1,8 +1,6 @@
 <script>
-    import messagesStore from '$lib/stores/messages.store';
-import errorMessageStore from '$lib/stores/messages.store'
-	import { error } from '@sveltejs/kit';
-	import { onMount } from 'svelte';
+    import messagesStore from '$lib/stores/errorMessages.store';
+    import errorMessageStore from '$lib/stores/errorMessages.store'
 </script>
 
 {#if $errorMessageStore.show}

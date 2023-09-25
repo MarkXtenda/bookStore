@@ -1,8 +1,8 @@
 <script lang="ts">
     import { page } from "$app/stores";
+	import userStore from '$lib/stores/auth.stores'
+	import {logout} from '$lib/firebase/auth.client'
     let currentPage = $page.url.pathname
-    console.log(currentPage)
-    let isLoggedIn = true;
     let isOpen = false;
 </script>
 
@@ -23,7 +23,7 @@
 		</button>
 		<div class:show={isOpen} class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
-                {#if isLoggedIn}
+                {#if $userStore.isLoggedin}
 				<li class="nav-item">
 					<a class:active={currentPage === '/home'} class="nav-link" aria-current="page" href="/">Home</a>
 				</li>
@@ -36,7 +36,7 @@
 				<li class="nav-item">
 					<a class:active={currentPage === '/about'} class="nav-link" href="/about">About</a>
 				</li>
-				<li class="nav-item">
+				<li on:click={logout} class="nav-item">
 					<span class:active={currentPage === 'logout'} class="nav-link">Logout</span>
 				</li>
 				<!-- Not Logged In -->
