@@ -2,6 +2,7 @@
 	import { enhance } from "$app/forms";
 
     export let buttonName ='';
+	export let forgotPassword = false;
 </script>
 
 <form on:submit|preventDefault>
@@ -9,6 +10,7 @@
 		<label for="email" class="form-label">Email</label>
 		<input type="email" name="email" class="form-control" id="email" placeholder="Email" required />
 	</div>
+	{#if !forgotPassword}
 	<div class="mb-3">
 		<label for="password" class="form-label">Password</label>
 		<input
@@ -19,5 +21,6 @@
 			placeholder="*********"
 		/>
 	</div>
+	{/if}
 	<button type="submit" class="btn btn-success w-100">{buttonName}</button>
 </form>

@@ -1,10 +1,10 @@
 import { goto } from '$app/navigation';
 import errorMessagesStore from '$lib/stores/errorMessages.store';
-import {getAuth, signInWithPopup, GoogleAuthProvider, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import {getAuth, signInWithPopup, GoogleAuthProvider, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail} from 'firebase/auth'
 
 function errorToStringConvert(error: string) {
     const errorString = error.split('/')[1].replaceAll('-', ' ')
-    return errorString.charAt(0).toUpperCase() + errorString.slice(1)
+    // return errorString.charAt(0).toUpperCase() + errorString.slice(1)
 }
 // @ts-ignore
 function setError(error) {
@@ -73,5 +73,14 @@ export async function loginWithEmailAndPassword({email, password}: { email: stri
         else {
             setError(error);
         }
+    }
+}
+
+export async function forgotPasswordReset(email:string) {
+    try {
+        await sendPasswordResetEmail(getAuth(), email)
+    } catch (error: any) {
+        // To prevet malicious mining we do not gonna show error
+        // console.log(error.code)
     }
 }
