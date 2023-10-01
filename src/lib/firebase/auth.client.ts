@@ -25,6 +25,9 @@ export async function loginWithGoogle() {
 export async function logout() {
     try {
         await signOut(getAuth());
+        const user = await getAuth().currentUser;
+        // fetch and logout token
+        await fetch('/logoutToken');
         // go to initial page to prevent a user to access what he should not have an acces to
         goto('/')
     } catch (error) {
@@ -83,4 +86,19 @@ export async function forgotPasswordReset(email:string) {
         // To prevet malicious mining we do not gonna show error
         // console.log(error.code)
     }
+}
+
+export async function sendJWTToken() {
+    const user = await getAuth().currentUser;
+    if(user) {
+        const token = await user.getIdToken(true);
+        await fetch('/loginToken', {
+            method: 'POST',
+            body: JSON.stringify({
+                token, 
+                email: user.email
+            })
+        })
+    }
+    return;
 }
