@@ -2,7 +2,7 @@ import { auth } from "$lib/firebase/firebase.server";
 import { redirect } from "@sveltejs/kit";
 
 /** @type {import('@sveltejs/kit').Handle} */
-export async function handle({event, resolve}) {
+export async function handle({event, resolve}: {event: any, resolve: any}) {
     const protectRoutes = [
         '/add',
         '/edit',
@@ -36,7 +36,7 @@ export async function handle({event, resolve}) {
     return response;
 }
 
-async function getFirebaseUser(token) {
+async function getFirebaseUser(token: string) {
     if (!token) {
         return null
     }
